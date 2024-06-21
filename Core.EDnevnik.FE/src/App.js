@@ -5,25 +5,32 @@ import Home from './components/Home';
 import About from './components/About';
 import Contact from './components/Contact';
 import Login from './components/Login';
-import Register from './components/Register';
+import RegisterForm from './components/RegisterForm';
 import './App.css';
 import logo from './assets/logo.png';
+import { jwtDecode } from 'jwt-decode';
+
+
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
+  const [user, setUser] = useState('');
 
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      setLoggedIn(true);
-      setUsername(user.first_name); // Assuming 'first_name' is the username field
+    const user = localStorage.getItem('access_token');
+    if(user){
+      const decodedToken = jwtDecode(localStorage.getItem('access_token'));
+      if (decodedToken) {
+        setLoggedIn(true);
+        setUser(decodedToken);
+      }
     }
+    
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem('access_token');
     setLoggedIn(false);
   };
 
@@ -36,12 +43,17 @@ function App() {
             <li>
               <Link to="/">Home</Link>
             </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/contact">Contact</Link>
-            </li>
+            {loggedIn && (
+              <>
+              <li>
+                  <Link to="/about">About</Link>
+                </li>
+                <li>
+                  <Link to="/contact">Contact</Link>
+                </li>
+                </>
+            )}
+            
             {!loggedIn ? (
               <>
                 <li>
@@ -60,11 +72,11 @@ function App() {
         </nav>
 
         <Routes>
-          <Route path="/" element={<Home username={username} />} />
+          <Route path="/" element={<Home user={user} />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<RegisterForm/>} />
         </Routes>
       </div>
     </Router>
