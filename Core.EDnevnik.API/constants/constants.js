@@ -1,0 +1,1 @@
+export const ALLOWED_ROLE = [1]

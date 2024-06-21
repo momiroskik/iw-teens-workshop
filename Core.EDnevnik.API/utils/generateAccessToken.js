@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import { generateRandomSecret } from "./randomSecret";
 
 export const generateAccessToken = (user) => {
+  const TOKEN_SECRET = process.env.JWT_SECRET || generateRandomSecret();
   const access_token = jwt.sign(
     {
       _id: user?.user_id,
@@ -9,7 +10,7 @@ export const generateAccessToken = (user) => {
       email: user?.email,
       role_id: user?.role_id,
     },
-    process.env.JWT_SECRET || generateRandomSecret(),
+    TOKEN_SECRET,
     { expiresIn: "1h" }
   );
 

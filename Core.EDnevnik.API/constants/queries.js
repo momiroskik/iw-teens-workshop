@@ -39,6 +39,10 @@ JOIN
 WHERE
     U.role_id = 2;
 `,
+  CHANGE_GRADE: `UPDATE Grade
+SET grade = ?
+WHERE user_id = ?
+  AND subject_id = ?;`,
 });
 
 export default QUERIES;
