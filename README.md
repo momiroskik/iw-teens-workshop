@@ -11,6 +11,10 @@ If you encounter a "permission denied" error when trying to execute the script o
 1. **Check Current Permissions**:
    Use the following command to view the current permissions of the script:
 
+   ````
+   ls -l start_projects.sh
+   ````
+
 This command will display something like `-rw-r--r--`, indicating the current permissions of the script.
 
 2. **Grant Execute Permission**:
@@ -19,9 +23,16 @@ To make the script executable, use the `chmod` command with `+x`:
 
 This command adds the execute permission (`+x`) to the script, allowing it to be run.
 
+   ````
+   chmod +x start_projects.sh
+   ````
+
 3. **Verify Permissions**:
 Check the permissions again to confirm that execute permission has been added:
 
+   ````
+   ls -l start_projects.sh
+   ````
 
 Now, the output should show `-rwxr-xr-x`, indicating that the script is executable (`rwx` for the owner, `rx` for group and others).
 
