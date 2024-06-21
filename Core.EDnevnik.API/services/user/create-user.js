@@ -46,7 +46,7 @@ export default async (req, res) => {
     surname: req.body.surname,
     school: req.body.school,
     password: encryptedPass,
-    role_id: role,
+    role_id: req.body.role_id || role,
   };
 
   try {
