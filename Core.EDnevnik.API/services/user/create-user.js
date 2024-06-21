@@ -3,6 +3,8 @@ import QUERIES from "../../constants/queries";
 import * as db from "../../database/init-db";
 import createUser from "../../repository/user/register-user";
 import bcrypt from "bcryptjs";
+import validateRequest from "../../utils/validateRequest";
+import registerValidationSchema from "./validationSchemas/registerValidationSchema";
 
 export default async (req, res) => {
   let role = process.env.DEFAULT_ROLE || 2;
@@ -10,6 +12,15 @@ export default async (req, res) => {
   if (!Object.keys(req.body).length) {
     return {
       message: ERROR_CODE.NO_REQ_BODY,
+      statusCode: 400,
+    };
+  }
+
+  const { error } = validateRequest(req.body, registerValidationSchema);
+
+  if (error && error.details) {
+    return {
+      message: error.details[0].message,
       statusCode: 400,
     };
   }
