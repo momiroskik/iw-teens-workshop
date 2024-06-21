@@ -1,5 +1,5 @@
 import ERROR_CODE from "../../constants/errorCodes";
-import QUERIES from "../../constants/queries";
+import * as USER_QUERIES from "../../database/queries/user";
 import * as db from "../../database/init-db";
 import createUser from "../../repository/user/register-user";
 import bcrypt from "bcryptjs";
@@ -25,7 +25,7 @@ export default async (req, res) => {
     };
   }
 
-  const existingUser = await db.findOne(QUERIES.FIND_USER_BY_EMAIL, [
+  const existingUser = await db.findOne(USER_QUERIES.FIND_USER_BY_EMAIL, [
     req.body.email,
   ]);
 

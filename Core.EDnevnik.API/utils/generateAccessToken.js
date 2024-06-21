@@ -9,6 +9,8 @@ export const generateAccessToken = (user) => {
       school: user?.school,
       email: user?.email,
       role_id: user?.role_id,
+      firstName: user?.name,
+      lastName: user?.surname,
     },
     TOKEN_SECRET,
     { expiresIn: "1h" }

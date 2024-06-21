@@ -1,15 +1,8 @@
-const QUERIES = Object.freeze({
-  CREATE_USER: `
-        INSERT INTO User (name, surname, role_id, email, password, school)
-        VALUES (?, ?, ?, ?, ?, ?);
-    `,
-  FIND_USER_BY_EMAIL: `
-    SELECT * FROM User WHERE email = ?
-  `,
-  ALL_STUDENTS: `SELECT User.name, User.surname, User.school
+const LIST_ALL_STUDENTS = `SELECT User.name, User.surname, User.school
 FROM User
-WHERE User.role_id == 2`,
-  SUBJECT_GRADE_BY_STUDENT: `SELECT
+WHERE User.role_id == 2`;
+
+const STUDENT_GRADES_BY_SUBJECT = `SELECT
     U.name AS user_name,
     U.surname AS user_surname,
     S.subject_name,
@@ -24,8 +17,8 @@ JOIN
     User_Subject US ON G.user_id = US.user_id AND G.subject_id = US.subject_id
 WHERE
     U.user_id = ?;
-`,
-  ALL_STUDENTS_SUBJECT_GRADE: `SELECT
+`;
+const STUDENTS_SUMMARY_REPORT = `SELECT
     U.user_id, U.name AS student_name,
     U.surname AS student_surname,
     S.subject_name,
@@ -38,11 +31,16 @@ JOIN
     Subject S ON G.subject_id = S.subject_id
 WHERE
     U.role_id = 2;
-`,
-  CHANGE_GRADE: `UPDATE Grade
+`;
+
+const CHANGE_STUDENT_SUBJECT_GRADE = `UPDATE Grade
 SET grade = ?
 WHERE user_id = ?
-  AND subject_id = ?;`,
-});
+  AND subject_id = ?;`;
 
-export default QUERIES;
+export {
+  LIST_ALL_STUDENTS,
+  STUDENT_GRADES_BY_SUBJECT,
+  STUDENTS_SUMMARY_REPORT,
+  CHANGE_STUDENT_SUBJECT_GRADE,
+};
