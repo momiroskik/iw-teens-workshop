@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# If your are running on a Unix-based operating system and you are unable to start the script that you need to
-# follow this command to give proper permission
-# ls -l start_projects.sh will give you something like -rw-r--r--
-# chmod +x start_projects.sh will add +x to permission and now you would be able to run it
-
-
 are_node_modules_installed() {
     if [ -d "node_modules" ]; then
         echo "node_modules found."
