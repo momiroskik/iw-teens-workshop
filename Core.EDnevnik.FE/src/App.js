@@ -9,13 +9,13 @@ import RegisterForm from './components/RegisterForm';
 import './App.css';
 import logo from './assets/logo.png';
 import { jwtDecode } from 'jwt-decode';
-
+import AllStudents from './components/AllStudents';
+import EvidentenList from './components/EvidentenList';
 
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState('');
-
 
   useEffect(() => {
     const user = localStorage.getItem('access_token');
@@ -41,15 +41,25 @@ function App() {
           <img src={logo} alt="Logo" className="logo" />
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">Дома</Link>
             </li>
             {loggedIn && (
               <>
-              <li>
+              {/* <li>
                   <Link to="/about">About</Link>
-                </li>
+                </li> */}
+                {user.role_id==1 && (
+                  <li>
+                  <Link to="/allstudents">Преглед на оцени</Link>
+                </li>  
+                )}
+                {user.role_id == 2 && (
+                  <li>
+                    <Link to="/evidentenlist">Евидентен лист</Link>
+                  </li>
+                )}
                 <li>
-                  <Link to="/contact">Contact</Link>
+                  <Link to="/contact">Контакт</Link>
                 </li>
                 </>
             )}
@@ -65,7 +75,7 @@ function App() {
               </>
             ) : (
               <li>
-                <button onClick={handleLogout}>Logout</button>
+                <button className='btn btn-danger' onClick={handleLogout}>Одјави се</button>
               </li>
             )}
           </ul>
@@ -75,6 +85,8 @@ function App() {
           <Route path="/" element={<Home user={user} />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/allstudents" element={<AllStudents />} />
+          <Route path="/evidentenlist" element={<EvidentenList student={user}/>} />
           <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
           <Route path="/register" element={<RegisterForm/>} />
         </Routes>

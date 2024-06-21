@@ -78,3 +78,17 @@ form button:hover {
   background-color: 1px solid rgb(207, 0, 24) !important;
   border-color:1px solid rgb(207, 0, 24) !important;
 }
+.btn{
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(207, 0, 24);
+  color: white;
+  cursor: pointer;
+}
+.btn:hover{
+  background-color: white;
+  color: rgb(207, 0, 24);
+  border: 1px solid rgb(207, 0, 24);  
+}
