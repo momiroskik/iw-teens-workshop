@@ -48,7 +48,7 @@ const findOne = (sql, params) => {
 
 const runQuery = (sql, params) => {
   return new Promise((resolve, reject) => {
-    dbInstance.get(sql, params, (err, row) => {
+    dbInstance.all(sql, params, (err, row) => {
       if (err) {
         reject(err);
       } else {

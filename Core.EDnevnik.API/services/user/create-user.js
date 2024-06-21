@@ -7,7 +7,7 @@ import bcrypt from "bcryptjs";
 export default async (req, res) => {
   let role = process.env.DEFAULT_ROLE || 2;
 
-  if (!req.body) {
+  if (!Object.keys(req.body).length) {
     return {
       message: ERROR_CODE.NO_REQ_BODY,
       statusCode: 400,
