@@ -1,0 +1,61 @@
+.large-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(192, 192, 192, 0.5);
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.indicator {
+    height: 1em;
+    width: 1em;
+    margin-right: 1em;
+    animation: blink 0.9s infinite, rainbow 2.7s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    33% {
+        opacity: 1;
+    }
+
+    66% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes rainbow {
+    0% {
+        background-color: rgba(0, 159, 227, 1);
+    }
+
+    33% {
+        background-color: rgba(0, 159, 227, 1);
+    }
+
+    33.5% {
+        background-color: rgba(255, 0, 175, 1);
+    }
+
+    66.5% {
+        background-color: rgba(255, 0, 175, 1);
+    }
+
+    67% {
+        background-color: rgba(255, 255, 0, 1);
+    }
+
+    100% {
+        background-color: rgba(255, 255, 0, 1);
+    }
+}
