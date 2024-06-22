@@ -92,3 +92,11 @@ form button:hover {
   color: rgb(207, 0, 24);
   border: 1px solid rgb(207, 0, 24);  
 }
+
+.accordion-button {
+  padding: 15px 50px;
+  border-radius: 25px;
+  text-transform: uppercase;
+  font-weight: 500;
+  background: #dee2e6;
+}

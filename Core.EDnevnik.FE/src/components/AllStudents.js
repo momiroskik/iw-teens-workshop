@@ -1,103 +1,179 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Layout from "./Layout/Layout";
+import latinToCyrillicText from "../utils/latin-to-cyrilic";
+import httpAuth from "../utils/core/api";
 
-function AllStudents({ setLoggedIn }) {
-    const [students, setStudents] = useState([]);
-    const [editableGrades, setEditableGrades] = useState({}); // State to track editable grades
-    const getAllStudents = async()=>{
-        try{
-            const response = await axios.get("http://localhost:3333/api/v1/student/report")
-            setStudents(response.data.data);
-        }catch(error){
-            toast.error(error.massage)
-        }
+const accordionStyle = {
+  padding: "15px 50px",
+  borderRadius: "25px",
+  textTransform: "uppercase",
+  fontWeight: 500,
+  background: "#dee2e6",
+  marginBottom: "20px",
+};
+
+const AllStudents = () => {
+  const [students, setStudents] = useState([]);
+  const [expandedIndex, setExpandedIndex] = useState(null);
+  const [modalStudent, setModalStudent] = useState(null);
+  const [modalSubjectIndex, setModalSubjectIndex] = useState(null);
+  const [editedGrade, setEditedGrade] = useState("");
+
+  const getAllStudents = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3333/api/v1/student/report"
+      );
+      setStudents(response.data.data);
+    } catch (error) {
+      toast.error(error.message);
     }
+  };
 
-    const handleEditGrade = (studentIndex, subjectIndex) => {
-        console.log('studentIndex',studentIndex)
-        console.log('studentIndex',studentIndex)
-      setEditableGrades({
-        ...editableGrades,
-        [`${studentIndex}-${subjectIndex}`]: true // Set as editable
-      });
-      console.log('edit', editableGrades)
-    };
-    const handleSaveGrade = (studentIndex, subjectIndex, event) => {
-        // console.log()
-        // Save the updated grade (you can send it to API or update state)
-        const newGrade = event.target.value; // Assuming value is directly taken from the input
-        console.log(`Saving grade ${newGrade} for student ${studentIndex}, subject ${subjectIndex}`);
-    
-    //     // Disable editing after saving
-    //     setEditableGrades({
-    //       ...editableGrades,
-    //       [`${studentIndex}-${subjectIndex}`]: false // Set as non-editable
-    //     });
-      };
-  
-    useEffect(()=>{
-        getAllStudents();
-    },[])
+  const changeGradeBySubject = async (studentId, subjectId, grade) => {
+    try {
+      const response = await httpAuth.post(
+        `http://localhost:3333/api/v1/student/${studentId}/${subjectId}`,
+        { grade }
+      );
 
-    return(
-        <div className="container mt-5">
-        <h2 className="text-center mb-4">Е-дневник на ученици и оцени</h2>
-        <div className="row">
-          <div className="col">
-            <table className="table table-striped">
-              <thead className="thead-dark">
-                <tr>
-                  <th scope="col">Име</th>
-                  <th scope="col">Презиме</th>
-                  <th scope="col">Предмет</th>
-                  <th scope="col">Оцена</th>
-                  {/* <th scope="col">Дејства</th> */}
-                </tr>
-              </thead>
-              <tbody>
-                {students.map((student, studentIndex) => (
-                  student.info.map((item, subjectIndex) => (
+      setStudents(response.data.data);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getAllStudents();
+  }, []);
+
+  const toggleAccordion = (index) => {
+    if (expandedIndex === index) {
+      setExpandedIndex(null);
+    } else {
+      setExpandedIndex(index);
+    }
+  };
+
+  const openEditModal = (studentIndex, subjectIndex) => {
+    setModalStudent(students[studentIndex]);
+    setModalSubjectIndex(subjectIndex);
+    setEditedGrade(students[studentIndex].info[subjectIndex].grade);
+  };
+
+  const handleCloseModal = () => {
+    setModalStudent(null);
+    setModalSubjectIndex(null);
+    setEditedGrade("");
+  };
+
+  const handleModalSave = async () => {
+    const updatedGrade = +editedGrade;
+    const subjectIdToChangeGrade = modalSubjectIndex + 1;
+    const studentId = modalStudent?.user_id;
+
+    await changeGradeBySubject(studentId, subjectIdToChangeGrade, updatedGrade);
+
+    handleCloseModal();
+  };
+
+  return (
+    <Layout>
+      <h2 className="text-center mb-4">Е-дневник на ученици и оцени</h2>
+      {students.map((student, studentIndex) => (
+        <div className="accordion-item" key={studentIndex}>
+          <h2
+            className="accordion-header"
+            onClick={() => toggleAccordion(studentIndex)}
+          >
+            <button
+              className="accordion-button"
+              type="button"
+              style={accordionStyle}
+            >
+              {latinToCyrillicText(student.student_name)}{" "}
+              {latinToCyrillicText(student.student_surname)}
+            </button>
+          </h2>
+          {expandedIndex === studentIndex && (
+            <div className="accordion-collapse">
+              <table className="table table-striped">
+                <thead className="thead-dark">
+                  <tr>
+                    <th scope="col">Предмет</th>
+                    <th scope="col">Оцена</th>
+                    <th scope="col">Дејства</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {student.info.map((item, subjectIndex) => (
                     <tr key={`${studentIndex}-${subjectIndex}`}>
-                      {subjectIndex === 0 ? (
-                        <td rowSpan={student.info.length}>{student.student_name}</td>
-                      ) : null}
-                      {subjectIndex === 0 ? (
-                        <td rowSpan={student.info.length}>{student.student_surname}</td>
-                      ) : null}
-                      <td>{item.subject_name}</td>
+                      <td>{latinToCyrillicText(item.subject_name)}</td>
                       <td>
-                        {/* {editableGrades[`${studentIndex}-${subjectIndex}`] ? (
-                          <input
-                            type="number"
-                            value={item.grade}
-                            onChange={(e) => handleSaveGrade(studentIndex, item.subject_name, e)}
-                            className="form-control"
-                          />
-                        ) : ( */}
-                          {item.grade}
-                        {/* )} */}
+                        <input
+                          type="text"
+                          value={item.grade}
+                          readOnly
+                          className="form-control"
+                        />
                       </td>
                       <td>
-                        {/* {editableGrades[`${studentIndex}-${subjectIndex}`] ? (
-                          <button className="btn btn-primary" onClick={() => handleSaveGrade(studentIndex, subjectIndex)}>
-                            Зачувај
-                          </button>
-                        ) : (
-                          <button className="btn btn-secondary" onClick={() => handleEditGrade(studentIndex, subjectIndex)}>
-                            Промени
-                          </button>
-                        )} */}
+                        <button
+                          className="btn btn-primary"
+                          onClick={() =>
+                            openEditModal(studentIndex, subjectIndex)
+                          }
+                        >
+                          Ажурирај
+                        </button>
                       </td>
                     </tr>
-                  ))
-                ))}
-              </tbody>
-            </table>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      ))}
+
+      {modalStudent && (
+        <div className="custom-modal">
+          <div className="modal-content">
+            <span className="close" onClick={handleCloseModal}>
+              &times;
+            </span>
+            <h2>Ажурирај Оцена</h2>
+            <p>
+              Име: {latinToCyrillicText(modalStudent.student_name)}{" "}
+              {latinToCyrillicText(modalStudent.student_surname)}
+            </p>
+            <p>
+              Предмет:{" "}
+              {modalStudent.info[modalSubjectIndex] &&
+                latinToCyrillicText(
+                  modalStudent.info[modalSubjectIndex].subject_name
+                )}
+            </p>
+            <p>
+              Оцена:{" "}
+              <input
+                type="text"
+                value={editedGrade}
+                onChange={(e) => setEditedGrade(e.target.value)}
+                className="form-control"
+              />
+            </p>
+            <button className="btn btn-primary" onClick={handleModalSave}>
+              Зачувај
+            </button>
           </div>
         </div>
-      </div>
-    );
-}
+      )}
+    </Layout>
+  );
+};
+
 export default AllStudents;

@@ -1,5 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Layout from "../components/Layout/Layout";
 
 const StudentTable = ({ initialData }) => {
   const gradeCount = initialData?.info?.reduce((acc, item) => {
@@ -9,7 +10,7 @@ const StudentTable = ({ initialData }) => {
   }, 0);
 
   return (
-    <div className="container mt-5">
+    <Layout>
       <h2 className="text-center mb-4">Е-дневник на ученици и оцени</h2>
       <div className="row">
         <div className="col">
@@ -59,7 +60,7 @@ const StudentTable = ({ initialData }) => {
           )}
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
