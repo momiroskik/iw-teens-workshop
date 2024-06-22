@@ -105,7 +105,7 @@ const AllStudents = () => {
                   <tr>
                     <th scope="col">Предмет</th>
                     <th scope="col">Оцена</th>
-                    <th scope="col">Дејства</th>
+                    <th scope="col">Акции</th>
                   </tr>
                 </thead>
                 <tbody>
