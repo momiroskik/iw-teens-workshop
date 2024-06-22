@@ -28,7 +28,7 @@ const AuthProviderInternal = ({ children }) => {
   const login = useCallback(
     async (email, password) => {
       try {
-        setIsLoading(true)
+        setIsLoading(true);
         await httpAuth
           .post("user/login", { email, password })
           .then(async (response) => {
@@ -39,7 +39,7 @@ const AuthProviderInternal = ({ children }) => {
           });
       } catch (error) {
         console.error(error);
-        setIsLoading(false)
+        setIsLoading(false);
       }
     },
     [handleAuthenticated]
@@ -47,6 +47,8 @@ const AuthProviderInternal = ({ children }) => {
 
   const logout = useCallback(async () => {
     cookies.remove("token");
+    setIsAuthenticated(false);
+    setUser(null);
   }, []);
 
   const value = useMemo(
@@ -73,12 +75,13 @@ const AuthProviderInternal = ({ children }) => {
     };
 
     if (cookies.get("token")) {
-      setIsLoading(true)
+      setIsLoading(true);
       fetchUserData();
     } else {
       handleUnauthenticated();
     }
   }, [cookies, handleAuthenticated, handleUnauthenticated]);
+
   return (
     <>
       <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

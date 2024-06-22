@@ -1,4 +1,6 @@
 import changeSubjectGrade from "../../repository/students/change-grade";
+import getStudentsReport from "../../repository/students/student-summary";
+import allStudentsReportMapper from "../../utils/all-students-report-mapper";
 import validateRequest from "../../utils/validateRequest";
 import updateGradeValidationSchema from "./validationSchemas/updateGradeSchema";
 
@@ -22,9 +24,12 @@ export default async (req, res) => {
       req.params.subjectId
     );
 
+    const result = await getStudentsReport();
+    const data = allStudentsReportMapper(result);
+
     return {
-      data: `The grade ${req.body.grade} is set for subject ${req.params.subjectId}`,
-      statusCode: 204,
+      data: data,
+      statusCode: 200,
     };
   } catch (error) {
     return { message: error };

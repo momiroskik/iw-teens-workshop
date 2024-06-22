@@ -7,6 +7,7 @@ const allStudentsReportMapper = (data) => {
 
     if (!acc[key]) {
       acc[key] = {
+        user_id,
         student_name,
         student_surname,
         info: [],

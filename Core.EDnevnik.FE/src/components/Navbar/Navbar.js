@@ -4,12 +4,6 @@ import useAuth from "../../hooks/use-auth";
 
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth();
-  const navigate = useNavigate();
-
-  const onHandleLogout = useCallback(() => {
-    logout();
-    navigate("/");
-  }, [navigate, logout]);
 
   return (
     <nav>
@@ -46,7 +40,7 @@ const Navbar = () => {
           </>
         ) : (
           <li>
-            <button className="btn btn-danger" onClick={onHandleLogout}>
+            <button className="btn btn-danger" onClick={logout}>
               Одјави се
             </button>
           </li>

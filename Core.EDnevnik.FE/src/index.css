@@ -49,3 +49,11 @@ button {
 .sideline:after {
   margin: 0 0 0 20px;
 }
+
+.accordion-button {
+  padding: 15px 50px;
+  border-radius: 25px;
+  text-transform: uppercase;
+  font-weight: 500;
+  background: #dee2e6;
+}

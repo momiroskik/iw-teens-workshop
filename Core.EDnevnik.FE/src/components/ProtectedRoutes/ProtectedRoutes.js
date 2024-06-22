@@ -12,6 +12,10 @@ const ProtectedRoute = () => {
     return <Navigate to="/dashboard" />;
   }
 
+  if (!isAuthenticated) {
+    return <Navigate to="/" />;
+  }
+
   return <Outlet />;
 };
 
