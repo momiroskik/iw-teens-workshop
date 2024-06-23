@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import useAuth from "../hooks/use-auth";
 import LargeIndicator from "../components/LoadingOverlay";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -40,7 +41,7 @@ const Login = () => {
           />
         </div>
         <div className="col-md-6 bg-white p-5">
-          <h3 className="pb-3">Најава</h3>
+          <h3 className="pb-3">Е-Дневник најава</h3>
           <div className="form-style">
             <form onSubmit={handleSubmit}>
               <div className="form-group pb-3">
@@ -77,6 +78,12 @@ const Login = () => {
                 </button>
               </div>
             </form>
+            <div className="pt-4 text-center">
+              Немате корисничка сметка?{" "}
+              <Link to="/register" title="Регистрирај се">
+                Регистрирај се
+              </Link>
+            </div>
           </div>
         </div>
       </div>

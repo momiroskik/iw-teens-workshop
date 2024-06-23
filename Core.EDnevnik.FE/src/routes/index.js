@@ -75,13 +75,7 @@ export const routes = createBrowserRouter([
   },
   {
     path: "/register",
-    element: <ProtectedRoute />,
-    children: [
-      {
-        element: <RegisterForm />,
-        index: true,
-      },
-    ],
+    element: <RegisterForm />,
   },
   {
     path: "*",
