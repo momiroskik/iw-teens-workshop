@@ -1,5 +1,6 @@
 import Cookies from "universal-cookie";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const cookies = new Cookies();
 
@@ -24,6 +25,20 @@ teensWorkshopAxiosAuthInstance.interceptors.request.use(
     return newRequestConfig;
   },
   (error) => Promise.reject(error)
+);
+
+teensWorkshopAxiosAuthInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (err) => {
+    const errorMessage =
+      err?.response?.data?.message || "Something went wrong :)";
+
+    toast.error(errorMessage);
+
+    return Promise.reject(err);
+  }
 );
 
 export const httpAuth = teensWorkshopAxiosAuthInstance;
