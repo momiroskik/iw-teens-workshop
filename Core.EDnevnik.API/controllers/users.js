@@ -5,11 +5,13 @@ import login from "../services/user/login";
 import tokenVerification from "../middleware/tokenVerification";
 import me from "../services/user/me";
 import changeRole from "../services/user/changeRole";
+import checkValidEmail from "../services/user/validationSchemas/checkValidEmail"
 
 const router = Router();
 
 router.post("/api/v1/user/login", routeHandler(login));
 router.post("/api/v1/user/register", routeHandler(createUser));
+router.post("/api/v1/user/email", routeHandler(checkValidEmail));
 router.get("/api/v1/user/me", tokenVerification, routeHandler(me));
 router.post("/api/v1/user/:userId/makeTeacher", routeHandler(changeRole));
 
