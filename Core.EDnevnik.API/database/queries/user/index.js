@@ -12,4 +12,9 @@ SET role_id = (
 WHERE user_id = ?;
 `;
 
-export { CREATE_USER, FIND_USER_BY_EMAIL, CHANGE_TEACHER_ROLE };
+const CHANGE_USER_DATA = `UPDATE User
+SET name = ?, surname = ?, role_id = ?, email = ?, password = ?, school = ?
+WHERE email = ?;
+`;
+
+export { CREATE_USER, FIND_USER_BY_EMAIL, CHANGE_TEACHER_ROLE, CHANGE_USER_DATA };
