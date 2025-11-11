@@ -1,0 +1,485 @@
+.contact-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  color: #4a5568;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.back-button:hover {
+  background: #f7fafc;
+  border-color: #667eea;
+  color: #667eea;
+  transform: translateY(-50%) translateX(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:active {
+  transform: translateY(-50%) translateX(-2px);
+}
+
+.back-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.contact-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Left Side - Offices */
+.contact-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.offices-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.offices-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+  border-color: #667eea;
+}
+
+.offices-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.offices-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.office-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.office-group-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e2e8f0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.office-group-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.office-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  align-items: center;
+  text-align: center;
+  padding: 1.25rem 1rem;
+  border-radius: 12px;
+  background: #f7fafc;
+  transition: all 0.2s ease;
+}
+
+.office-item:hover {
+  background: #edf2f7;
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.office-image {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.office-image svg {
+  width: 32px;
+  height: 32px;
+}
+
+.office-image.netherlands {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+}
+
+.office-image.serbia {
+  background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+}
+
+.office-image.north-america {
+  background: linear-gradient(135deg, #9f7aea 0%, #805ad5 100%);
+}
+
+.office-item.hq {
+  border: 2px solid #667eea;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+}
+
+.office-item.hq .office-image {
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.hq-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.125rem 0.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+}
+
+.office-info {
+  flex: 1;
+}
+
+.office-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 0.25rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.office-location {
+  font-size: 0.875rem;
+  color: #667eea;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.office-description {
+  font-size: 0.875rem;
+  color: #718096;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Right Side - General Info */
+.contact-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+  border-color: #667eea;
+}
+
+.info-logo-wrapper {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-logo {
+  max-width: 180px;
+  height: auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.company-name {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0;
+}
+
+.company-description {
+  font-size: 1rem;
+  color: #718096;
+  margin: 0;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin: 0.5rem 0;
+}
+
+.contact-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  background: #f7fafc;
+  border-radius: 12px;
+  color: #4a5568;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.contact-detail-item:hover {
+  background: #edf2f7;
+  transform: translateX(4px);
+}
+
+.detail-icon {
+  width: 20px;
+  height: 20px;
+  color: #667eea;
+  flex-shrink: 0;
+}
+
+.website-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  margin-top: 0.5rem;
+}
+
+.website-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.website-link:active {
+  transform: translateY(0);
+}
+
+.website-link svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.website-link:hover svg {
+  transform: translateX(4px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .contact-header {
+    margin-bottom: 2rem;
+  }
+
+  .back-button {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    margin-bottom: 1.5rem;
+    align-self: flex-start;
+  }
+
+  .contact-title {
+    font-size: 2rem;
+  }
+
+
+  .offices-card,
+  .info-card {
+    padding: 1.5rem;
+  }
+
+  .offices-title {
+    font-size: 1.25rem;
+  }
+
+  .offices-list {
+    gap: 1.5rem;
+  }
+
+  .office-group-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .office-item {
+    padding: 1rem;
+  }
+
+  .office-image {
+    width: 56px;
+    height: 56px;
+  }
+
+  .office-image svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .office-name {
+    font-size: 1rem;
+  }
+
+  .info-logo {
+    max-width: 150px;
+  }
+
+  .company-name {
+    font-size: 1.5rem;
+  }
+
+  .company-description {
+    font-size: 0.95rem;
+  }
+
+  .website-link {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-title {
+    font-size: 1.75rem;
+  }
+
+  .offices-card,
+  .info-card {
+    padding: 1.25rem;
+  }
+
+  .info-logo {
+    max-width: 120px;
+  }
+
+  .company-name {
+    font-size: 1.25rem;
+  }
+
+  .contact-detail-item {
+    font-size: 0.875rem;
+    padding: 0.75rem;
+  }
+
+  .website-link {
+    width: 100%;
+    justify-content: center;
+    padding: 0.875rem 1.25rem;
+  }
+
+  .office-group-list {
+    grid-template-columns: 1fr;
+  }
+}
+

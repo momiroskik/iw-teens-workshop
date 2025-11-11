@@ -30,7 +30,7 @@ api_default_port=3333
 
 # Core.EDnevnik.FE settings
 fe_project_location="Core.EDnevnik.FE"
-fe_startup_script="start"
+fe_startup_script="dev"
 fe_default_port=3000
 
 run_npm_script "$api_project_location" "$api_startup_script" &
